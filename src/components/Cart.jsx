@@ -2,26 +2,27 @@ import React from 'react';
 import { useCart } from './CartContext';
 
 function Cart() {
-    const { cart, removeFromCart } = useCart();
+    const { cart, removeFromCart, clearCart } = useCart();
+
     return (
         <div>
-            <h2>Tu Carrito</h2>
+            <h2>Carrito de compras</h2>
             {cart.length === 0 ? (
-                <p>No hay productos en el carrito</p>
+                <p>Tu carrito está vacío.</p>
             ) : (
-                <div>
-                    {cart.map((item) => (
-                        <div key={item.id}>
-                            <h3>{item.name}</h3>
-                            <p>Precio: ${item.price}</p>
-                            <p>Cantidad: {item.quantity}</p>
+                <ul>
+                    {cart.map(item => (
+                        <li key={item.id}>
+                            {item.nombre} - ${item.precio} x {item.cantidad} 
                             <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ul>
             )}
+            <button onClick={clearCart}>Vaciar carrito</button>
         </div>
     );
 }
+
 
 export default Cart;
