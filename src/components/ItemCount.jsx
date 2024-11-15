@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
 
-function ItemCount({ stock, onAdd, initial = 1, max }) {
-    const [quantity, setQuantity] = useState(initial);
+function ItemCount({ stock, initial = 1, onAdd }) {
+    const [count, setCount] = useState(initial);
 
-    const increase = () => {
-        if (quantity < stock) {
-            setQuantity(quantity + 1);
+    const handleIncrement = () => {
+        if (count < stock) {
+            setCount(count + 1);
         }
     };
 
-    const decrease = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
+    const handleDecrement = () => {
+        if (count > 1) {
+            setCount(count - 1);
         }
     };
 
     const handleAddToCart = () => {
-        onAdd(quantity);
+        if (stock > 0) {
+            onAdd(count); 
+        } else {
+            alert("Producto sin stock disponible");
+        }
     };
 
     return (
         <div>
-            <button onClick={decrease}>-</button>
-            <span>{quantity}</span>
-            <button onClick={increase}>+</button>
-            <div>
-                <button onClick={handleAddToCart} disabled={quantity > stock}>Agregar al carrito</button>
-            </div>
-            {quantity > stock && <p>No hay suficiente stock</p>}
+            <button onClick={handleDecrement} disabled={count === 1}>-</button>
+            <span>{count}</span>
+            <button onClick={handleIncrement} disabled={count === stock}>+</button>
+            <button onClick={handleAddToCart}>Agregar al carrito</button>
         </div>
     );
 }

@@ -8,21 +8,22 @@ function Cart() {
         <div>
             <h2>Carrito de compras</h2>
             {cart.length === 0 ? (
-                <p>Tu carrito está vacío.</p>
+                <p>El carrito está vacío.</p>
             ) : (
                 <ul>
-                    {cart.map(item => (
+                    {cart.map((item) => (
                         <li key={item.id}>
-                            {item.nombre} - ${item.precio} x {item.cantidad} 
+                            {item.nombre} - ${item.precio} x {item.quantity}
                             <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
                         </li>
                     ))}
                 </ul>
             )}
-            <button onClick={clearCart}>Vaciar carrito</button>
+            {cart.length > 0 && (
+                <button onClick={clearCart}>Vaciar carrito</button>
+            )}
         </div>
     );
 }
-
 
 export default Cart;
